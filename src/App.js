@@ -17,10 +17,6 @@ const Main = () => {
       <a id="download-mm" href="/" target="_blank">
         Download Metamask
       </a>{" "}
-      <br /> <br />
-      <a id="login-injected" href="/" style={{ display: "none" }}>
-        Use Existing Provider
-      </a>
     </div>
   );
 };
