@@ -5,7 +5,7 @@ import Web3 from "web3";
 
 const bitski = new Bitski(
   "a50201b1-ab54-458d-9991-88acf345c8c5",
-  "https://login-with-bitski-test.vercel.app/callback.html"
+  "https://login-with-bitski-test.vercel.app/success"
 );
 
 const Main = () => {
@@ -23,23 +23,16 @@ const Main = () => {
 
 const Success = () => {
   // connect via oauth to use the wallet (call this from a click handler)
-  
-  const login = async () => {
-    await bitski.signIn();
-  }
-  return (
-    <div>
-      <h1>Success Login</h1>
-
-      <button onClick={login}>Login now</button>
-    </div>
-  );
+  useEffect(() => {
+    Bitski.callback();
+  });
+  return <div>Logging in...</div>;
 };
 
 export default function App() {
   async function continueToApp(provider) {
     const web3 = new Web3(provider);
-    console.log("web3", web3)
+    console.log("web3", web3);
     // continue!
     console.log("Accounts", await web3.eth.getAccounts());
   }
