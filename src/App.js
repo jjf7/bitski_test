@@ -45,22 +45,25 @@ export default function App() {
   }
 
   useEffect(() => {
-    const provider = bitski.getProvider();
-    const web3 = new Web3(provider);
+    const init = async () => {
+      const provider = bitski.getProvider();
+      const web3 = new Web3(provider);
 
-    // public calls are always available
-    const network = await web3.eth.getBlockNumber();
+      // public calls are always available
+      const network = await web3.eth.getBlockNumber();
 
-    // connect via oauth to use the wallet (call this from a click handler)
-    await bitski.signIn();
+      // connect via oauth to use the wallet (call this from a click handler)
+      await bitski.signIn();
 
-    // now you can get accounts
-    const accounts = await web3.eth.getAccounts();
+      // now you can get accounts
+      const accounts = await web3.eth.getAccounts();
 
-    console.log("accounts:", accounts)
+      console.log("accounts:", accounts);
 
-    // and submit transactions for the user to approve
-    
+      // and submit transactions for the user to approve
+    };
+
+    init();
   });
 
   return (
