@@ -23,10 +23,10 @@ const Main = () => {
 
 const Success = () => {
   // connect via oauth to use the wallet (call this from a click handler)
-
+  
   const login = async () => {
     await bitski.signIn();
-  };
+  }
   return (
     <div>
       <h1>Success Login</h1>
@@ -39,31 +39,38 @@ const Success = () => {
 export default function App() {
   async function continueToApp(provider) {
     const web3 = new Web3(provider);
-    console.log("web3", web3);
+    console.log("web3", web3)
     // continue!
     console.log("Accounts", await web3.eth.getAccounts());
   }
 
   useEffect(() => {
-    const init = async () => {
-      const provider = bitski.getProvider();
-      const web3 = new Web3(provider);
+    window.addEventListener("load", () => {
+      const useExistingBtn = document.querySelector("#login-injected");
+      const useBitskiBtn = document.querySelector("#login-bitski");
+      const downloadMMBtn = document.querySelector("#download-mm");
 
-      // public calls are always available
-      const network = await web3.eth.getBlockNumber();
+      // inject bitski connect button
+      const connectBtn = bitski.getConnectButton({ container: useBitskiBtn });
 
-      // connect via oauth to use the wallet (call this from a click handler)
-      await bitski.signIn();
+      // set bitski post-login callback
+      connectBtn.callback = function () {
+        continueToApp(bitski.getProvider());
+      };
 
-      // now you can get accounts
-      const accounts = await web3.eth.getAccounts();
+      if (window.ethereum) {
+        // Show use existing button
+        downloadMMBtn.style.display = "none";
+        useExistingBtn.style.display = "block";
 
-      console.log("accounts:", accounts);
-
-      // and submit transactions for the user to approve
-    };
-
-    init();
+        // Add action
+        useExistingBtn.addEventListener("click", () => {
+          window.ethereum.enable().then(() => {
+            continueToApp(window.ethereum);
+          });
+        });
+      }
+    });
   });
 
   return (
