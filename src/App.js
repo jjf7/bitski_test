@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bitski } from "bitski";
 import Web3 from "web3";
@@ -12,11 +12,18 @@ const Main = () => {
   return (
     <div>
       <h1>Bitski Login Test JFdeSOUSA</h1>
-      <div id="login-bitski"></div>
-      <br /> <br />
-      <a id="download-mm" href="/" target="_blank">
-        Download Metamask
-      </a>{" "}
+
+      {account === undefined ? (
+        <>
+          <div id="login-bitski"></div>
+          <br /> <br />
+          <a id="download-mm" href="/" target="_blank">
+            Download Metamask
+          </a>
+        </>
+      ) : (
+        <p>Your Account is: <b>{account}</b></p>
+      )}
     </div>
   );
 };
@@ -30,11 +37,15 @@ const Success = () => {
 };
 
 export default function App() {
+  const [account, setAccount] = useState(undefined);
+
   async function continueToApp(provider) {
     const web3 = new Web3(provider);
     console.log("web3", web3);
     // continue!
     console.log("Accounts", await web3.eth.getAccounts());
+    const accounts = await web3.eth.getAccounts();
+    setAccount(accounts[0]);
   }
 
   useEffect(() => {
