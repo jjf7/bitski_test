@@ -30,10 +30,11 @@ const Success = () => {
 };
 
 export default function App() {
-  function continueToApp(provider) {
+  async function continueToApp(provider) {
     const web3 = new Web3(provider);
+    console.log("web3", web3)
     // continue!
-    console.log(web3.eth.getAccounts());
+    console.log("Accounts", await web3.eth.getAccounts());
   }
 
   useEffect(() => {
