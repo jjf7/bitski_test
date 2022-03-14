@@ -8,7 +8,7 @@ const bitski = new Bitski(
   "https://login-with-bitski-test.vercel.app/success"
 );
 
-const Main = () => {
+const Main = ({ account }) => {
   return (
     <div>
       <h1>Bitski Login Test JFdeSOUSA</h1>
@@ -22,7 +22,9 @@ const Main = () => {
           </a>
         </>
       ) : (
-        <p>Your Account is: <b>{account}</b></p>
+        <p>
+          Your Account is: <b>{account}</b>
+        </p>
       )}
     </div>
   );
@@ -79,7 +81,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" exact element={<Main />} />
+      <Route path="/" exact element={<Main account={account} />} />
       <Route path="/success" element={<Success />} />
     </Routes>
   );
