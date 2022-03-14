@@ -22,9 +22,16 @@ const Main = () => {
 };
 
 const Success = () => {
+  // connect via oauth to use the wallet (call this from a click handler)
+  
+  const login = async () => {
+    await bitski.signIn();
+  }
   return (
     <div>
       <h1>Success Login</h1>
+
+      <button onClick={login}>Login now</button>
     </div>
   );
 };
