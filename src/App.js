@@ -5,7 +5,7 @@ import Web3 from "web3";
 
 const bitski = new Bitski(
   "a50201b1-ab54-458d-9991-88acf345c8c5",
-  "https://vercel.com/jjf7/login-with-bitski-test/success"
+  "https://login-with-bitski-test.vercel.app/success"
 );
 
 const Main = () => {
