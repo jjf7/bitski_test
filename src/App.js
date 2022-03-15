@@ -57,6 +57,7 @@ export default function App() {
 
 
   const handleMetamask = async() => {
+    await window.ethereum.enable();
     continueToApp(window.ethereum); 
   }
 
