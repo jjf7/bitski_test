@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Bitski } from "bitski";
 import Web3 from "web3";
+import abi from "./abis/abi.json";
+
+const ADDRESS = "0xDb7091e62a4E53B25443D002460291C47c1Cc45c";
 
 const bitski = new Bitski(
   "a50201b1-ab54-458d-9991-88acf345c8c5",
   "https://login-with-bitski-test.vercel.app/success"
 );
 
-const Main = ({ account }) => {
+const Main = ({ account, handleMetamask }) => {
   return (
     <div>
       <h1>Bitski Login Test JFdeSOUSA</h1>
@@ -20,6 +23,8 @@ const Main = ({ account }) => {
           <a id="download-mm" href="/" target="_blank">
             Download Metamask
           </a>
+
+          <a onClick={handleMetamask}>Login with Metamask</a>
         </>
       ) : (
         <p>
@@ -48,6 +53,11 @@ export default function App() {
     console.log("Accounts", await web3.eth.getAccounts());
     const accounts = await web3.eth.getAccounts();
     setAccount(accounts[0]);
+  }
+
+
+  const handleMetamask = async() => {
+    continueToApp(window.ethereum); 
   }
 
   useEffect(() => {
@@ -81,7 +91,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" exact element={<Main account={account} />} />
+      <Route path="/" exact element={<Main account={account} handleMetamask={handleMetamask} />} />
       <Route path="/success" element={<Success />} />
     </Routes>
   );
