@@ -31,19 +31,19 @@ const Main = ({ account, handleMetamask }) => {
           <p>
             Your Account is: <b>{account}</b>
           </p>
-
-          <CrossmintPayButton
-            collectionTitle="FAM STARS"
-            collectionDescription="FAM STARS Test Deployment"
-            collectionPhoto="https://www.crossmint.io/assets/crossmint/logo.png"
-            clientId="4ac00ba3-fdd5-4d9a-9941-398c52f7a7ed"
-            mintConfig={{
-              price: "1.5",
-              amount: 1,
-            }}
-          />
         </>
       )}
+
+      <CrossmintPayButton
+        collectionTitle="FAM STARS"
+        collectionDescription="FAM STARS Test Deployment"
+        collectionPhoto="https://www.crossmint.io/assets/crossmint/logo.png"
+        clientId="4ac00ba3-fdd5-4d9a-9941-398c52f7a7ed"
+        mintConfig={{
+          price: "1.5",
+          amount: 1,
+        }}
+      />
     </div>
   );
 };
