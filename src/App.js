@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 import { Bitski } from "bitski";
 import Web3 from "web3";
 import abi from "./abis/abi.json";
@@ -23,13 +24,25 @@ const Main = ({ account, handleMetamask }) => {
           <a id="download-mm" href="/" target="_blank">
             Download Metamask
           </a>
-
           <a onClick={handleMetamask}>Login with Metamask</a>
         </>
       ) : (
-        <p>
-          Your Account is: <b>{account}</b>
-        </p>
+        <>
+          <p>
+            Your Account is: <b>{account}</b>
+          </p>
+
+          <CrossmintPayButton
+            collectionTitle="FAM STARS"
+            collectionDescription="FAM STARS Test Deployment"
+            collectionPhoto="https://www.crossmint.io/assets/crossmint/logo.png"
+            clientId="4ac00ba3-fdd5-4d9a-9941-398c52f7a7ed"
+            mintConfig={{
+              price: "1.5",
+              amount: 1,
+            }}
+          />
+        </>
       )}
     </div>
   );
@@ -55,11 +68,10 @@ export default function App() {
     setAccount(accounts[0]);
   }
 
-
-  const handleMetamask = async() => {
+  const handleMetamask = async () => {
     await window.ethereum.enable();
-    continueToApp(window.ethereum); 
-  }
+    continueToApp(window.ethereum);
+  };
 
   useEffect(() => {
     window.addEventListener("load", () => {
@@ -92,7 +104,11 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" exact element={<Main account={account} handleMetamask={handleMetamask} />} />
+      <Route
+        path="/"
+        exact
+        element={<Main account={account} handleMetamask={handleMetamask} />}
+      />
       <Route path="/success" element={<Success />} />
     </Routes>
   );
