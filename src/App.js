@@ -33,7 +33,7 @@ const Main = ({ account, handleMetamask }) => {
           </p>
         </>
       )}
-
+<br /><br />
       <CrossmintPayButton
         collectionTitle="FAM STARS"
         collectionDescription="FAM STARS Test Deployment"
